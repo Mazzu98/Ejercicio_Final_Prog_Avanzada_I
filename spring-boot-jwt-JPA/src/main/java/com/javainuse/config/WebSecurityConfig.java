@@ -19,12 +19,17 @@ import com.javainuse.service.JwtUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
+//con perPostEnabled se usa para indicar a q metodos puede acceder solo el admin
+//Los metodos que no lleven anotación pueden acceder el admin como un generic user
+//@preauthorized solo puede acceder el admin
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+	  //Devuelve el mensaje de no autorizado
 	@Autowired
 	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
+	
 	@Autowired
 	private JwtUserDetailsService jwtUserDetailsService;
 
@@ -37,7 +42,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// Indicamos que tipo de encriptacion vamos a utilizar ( BCryptPasswordEncoder)
 		auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
 	}
-
+    /**
+     * Encripta el pasword
+     * @return pasword ecriptado
+     */
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
