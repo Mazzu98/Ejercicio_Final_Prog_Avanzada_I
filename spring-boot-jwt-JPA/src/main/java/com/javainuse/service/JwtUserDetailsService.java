@@ -34,13 +34,9 @@ public class JwtUserDetailsService implements UserDetailsService {
 		}
 	
 		List<SimpleGrantedAuthority> atuh= new ArrayList<>();
-		if(user.getUsername().equals("admin")) {
-			atuh.add(new SimpleGrantedAuthority("ROLE_ADMIN"));	
-		}else {
-			atuh.add(new SimpleGrantedAuthority("ROLE_USER"));
-		}
 		
-		
+		atuh.add(new SimpleGrantedAuthority("ROLE_" + user.getRole()));	
+				
 		//Pasamos usuario y pass como nos llega de la peticion. La encriptacion y validacion 
 		return new User(user.getUsername(),user.getPassword(),atuh);
 	}
@@ -49,6 +45,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 		Usuario newUser = new Usuario();
 		newUser.setUsername(user.getUsername());
 		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+		newUser.setRole(user.getRole());
 		return userDao.save(newUser);
 	}
 }

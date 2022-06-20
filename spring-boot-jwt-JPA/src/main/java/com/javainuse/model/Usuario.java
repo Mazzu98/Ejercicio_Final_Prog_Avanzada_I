@@ -3,6 +3,7 @@ package com.javainuse.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "user")
@@ -16,6 +17,9 @@ public class Usuario {
 	@Column
 	@JsonIgnore
 	private String password;
+	@Column
+	@NotNull
+	private String role;
 	
 	public String getUsername() {
 		return username;
@@ -33,4 +37,11 @@ public class Usuario {
 		this.password = password;
 	}
 
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
 }

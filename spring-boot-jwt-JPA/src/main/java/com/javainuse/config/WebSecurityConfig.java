@@ -62,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		// We don't need CSRF for this example
 		httpSecurity.csrf().disable()
 				// Indicamos que los endpong, no requieren estar logeados
-				.authorizeRequests().antMatchers("/authenticate", "/register").permitAll().
+				.authorizeRequests().antMatchers("/authenticate", "/register","/empleados","/empleado/{id}").permitAll().
 		
 				//el resto va a requerir autenticacion
 				anyRequest().authenticated().and().
